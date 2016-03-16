@@ -48,8 +48,9 @@ SELECT COUNT(products.id) AS "Total number of products we carry" FROM products;
 
 
 -- 8. What is the total available on-hand quantity of diet pepsi?
-SELECT SUM(on_hand)
+SELECT products.description, SUM(on_hand) AS "Total on-hand"
 FROM warehouse_product
 RIGHT OUTER JOIN products
 ON warehouse_product.product_id = products.id
-WHERE products.id=6; --pepsi product_id is 6
+WHERE products.id=6
+GROUP BY products.description; --pepsi product_id is 6
