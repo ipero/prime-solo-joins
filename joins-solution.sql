@@ -32,12 +32,12 @@ WHERE products.id = '6';
 
 -- 5. Get the number of orders for each customer. NOTE: It is OK if those
 --    without orders are not included in results. ???
-SELECT customers.first_name, customers.last_name, COUNT(address_id) AS numberOfOrders
+SELECT customers.first_name, customers.last_name, COUNT(orders.id) AS numberOfOrders
 FROM customers
 JOIN addresses
 ON customers.id = addresses.customer_id
 LEFT JOIN orders
-ON addresses.customer_id = orders.address_id GROUP BY customers.id;
+ON addresses.id = orders.address_id GROUP BY customers.id;
 
 -- 6. How many customers do we have?
 SELECT COUNT(*) AS "Total customers" FROM customers;
