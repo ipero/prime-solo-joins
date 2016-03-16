@@ -32,12 +32,12 @@ WHERE products.id = '6';
 
 -- 5. Get the number of orders for each customer. NOTE: It is OK if those
 --    without orders are not included in results. ???
-SELECT customers.first_name, customers.last_name, orders.total
+SELECT customers.first_name, customers.last_name, COUNT(address_id) AS numberOfOrders
 FROM customers
 JOIN addresses
 ON customers.id = addresses.customer_id
-JOIN orders
-ON addresses.customer_id = orders.address_id;
+LEFT JOIN orders
+ON addresses.customer_id = orders.address_id GROUP BY customers.id;
 
 -- 6. How many customers do we have?
 SELECT COUNT(*) AS "Total customers" FROM customers;
@@ -45,11 +45,7 @@ SELECT COUNT(*) AS "Total customers" FROM customers;
 
 -- 7. How many products do we carry?
 SELECT COUNT(products.id) AS "Total number of products we carry" FROM products;
--- SELECT COUNT(products.id) AS "Total product we carry now"
--- FROM products
--- JOIN warehouse_product
--- ON products.id = warehouse_product.product_id
--- WHERE warehouse_product.on_hand > 0;
+
 
 -- 8. What is the total available on-hand quantity of diet pepsi?
 SELECT SUM(on_hand)
